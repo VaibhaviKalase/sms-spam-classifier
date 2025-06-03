@@ -6,15 +6,26 @@ from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from wordcloud import WordCloud
 import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
-import nltk
 import os
 
-# Add the local nltk_data path
-nltk.data.path.append(os.path.join(os.path.dirname(__file__), 'nltk_data'))
+# Define local nltk data directory relative to this file
+nltk_data_dir = os.path.join(os.path.dirname(__file__), 'nltk_data')
 
+# Add the local nltk_data path BEFORE downloading or loading
+nltk.data.path.append(nltk_data_dir)
 
+# Download punkt and stopwords to the local directory only if not present
+def download_nltk_resources():
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download('punkt', download_dir=nltk_data_dir)
+    try:
+        nltk.data.find('corpora/stopwords')
+    except LookupError:
+        nltk.download('stopwords', download_dir=nltk_data_dir)
+
+download_nltk_resources()
 
 # Initialize stemmer
 stemmer = PorterStemmer()
