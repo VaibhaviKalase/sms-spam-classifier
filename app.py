@@ -8,6 +8,11 @@ from wordcloud import WordCloud
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
+import nltk
+import os
+
+# Add the local nltk_data path
+nltk.data.path.append(os.path.join(os.path.dirname(__file__), 'nltk_data'))
 
 
 
